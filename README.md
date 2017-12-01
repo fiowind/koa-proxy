@@ -1,13 +1,13 @@
-# koa-proxy [![Build Status](https://travis-ci.org/popomore/koa-proxy.png?branch=master)](https://travis-ci.org/popomore/koa-proxy) [![Coverage Status](https://coveralls.io/repos/popomore/koa-proxy/badge.png?branch=master)](https://coveralls.io/r/popomore/koa-proxy?branch=master)
+# koa-fio-proxy [![Build Status](https://travis-ci.org/popomore/koa-proxy.png?branch=master)](https://travis-ci.org/popomore/koa-proxy) [![Coverage Status](https://coveralls.io/repos/popomore/koa-proxy/badge.png?branch=master)](https://coveralls.io/r/popomore/koa-proxy?branch=master)
 
-Proxy middleware for koa
+Proxy middleware for koa (base on koa-proxy, add headers)
 
 ---
 
 ## Install
 
 ```
-$ npm install koa-proxy -S
+$ npm install koa-fio-proxy -S
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ When you request http://localhost:3000/index.js, it will fetch http://alicdn.com
 
 ```js
 var koa = require('koa');
-var proxy = require('koa-proxy');
+var proxy = require('koa-fio-proxy');
 var app = koa();
 app.use(proxy({
   host: 'http://alicdn.com'
@@ -39,6 +39,18 @@ app.get('index.js', proxy({
   host: 'http://alicdn.com',
   map: {
     'index.js': 'index-1.js'
+  }
+}));
+```
+
+you can add and replace any headers you need
+
+```js
+app.use(proxy({
+  host:  'http://alicdn.com',     // proxy alicdn.com...
+  headers: {
+    'host': 'test.com',
+    'request-header' '11111'
   }
 }));
 ```
