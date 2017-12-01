@@ -5,7 +5,7 @@ var iconv = require('iconv-lite');
 var coRequest = require('co-request');
 
 module.exports = function(options) {
-  options || (options = {});
+  options || (options = {headers: {}});
   var request = coRequest.defaults({ jar: options.jar === true });
 
   if (!(options.host || options.map || options.url)) {
@@ -39,12 +39,12 @@ module.exports = function(options) {
         return yield* next;
       }
     }
-    
+
     var parsedBody = getParsedBody(this);
 
     var opt = {
       url: url + (this.querystring ? '?' + this.querystring : ''),
-      headers: this.header,
+      headers: {...this.header, ...options.headers}
       encoding: null,
       followRedirect: options.followRedirect === false ? false : true,
       method: this.method,
@@ -52,7 +52,7 @@ module.exports = function(options) {
     };
 
     // set 'Host' header to options.host (without protocol prefix), strip trailing slash
-    if (options.host) opt.headers.host = options.host.slice(options.host.indexOf('://')+3).replace(/\/$/,'');
+    if (!opt.headers.host) opt.headers.host = options.host.slice(options.host.indexOf('://')+3).replace(/\/$/,'');
 
     if (options.requestOptions) {
       if (typeof options.requestOptions === 'function') {
