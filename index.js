@@ -44,7 +44,7 @@ module.exports = function(options) {
 
     var opt = {
       url: url + (this.querystring ? '?' + this.querystring : ''),
-      headers: {...this.header, ...options.headers}
+      headers: {...this.header, ...options.headers},
       encoding: null,
       followRedirect: options.followRedirect === false ? false : true,
       method: this.method,
