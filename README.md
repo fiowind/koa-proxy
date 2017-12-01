@@ -1,6 +1,6 @@
 # koa-fio-proxy [![Build Status](https://travis-ci.org/popomore/koa-proxy.png?branch=master)](https://travis-ci.org/popomore/koa-proxy) [![Coverage Status](https://coveralls.io/repos/popomore/koa-proxy/badge.png?branch=master)](https://coveralls.io/r/popomore/koa-proxy?branch=master)
 
-Proxy middleware for koa (base on koa-proxy, add headers)
+Proxy middleware for koa (base on koa-proxy, add request header re-writing)
 
 ---
 
