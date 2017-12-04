@@ -55,6 +55,21 @@ app.use(proxy({
 }));
 ```
 
+you can specify a function that can map your request's headers
+
+```js
+app.use(proxy({
+  host:  'http://alicdn.com',     // proxy alicdn.com...
+  headers: ctx => {
+    const param = ctx.query.testparam;
+    return {
+      header-request: 'test',
+      host: `${param}.test.com`
+    }
+  }
+}));
+```
+
 You can specify a function that can map your request's path to the desired destination.
 
 ```js
