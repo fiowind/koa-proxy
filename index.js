@@ -45,13 +45,17 @@ module.exports = function(options) {
     var optionHeaders = resolveHeader(this, options);
 
     var opt = {
-      url: url + (this.querystring ? '?' + this.querystring : ''),
       headers: {...this.headers, ...optionHeaders},
       encoding: null,
       followRedirect: options.followRedirect === false ? false : true,
       method: this.method,
-      body: parsedBody,
+      body: parsedBody
     };
+    if (options.withQuery !== undefined && options.withQuery === false) {
+      opt.url = url;
+    } else {
+      opt.url = url + (this.querystring ? '?' + this.querystring : '');
+    }
 
     // set 'Host' header to options.host (without protocol prefix), strip trailing slash
     if (!opt.headers.host) opt.headers.host = options.host.slice(options.host.indexOf('://')+3).replace(/\/$/,'');
