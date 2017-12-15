@@ -51,8 +51,13 @@ module.exports = function(options) {
       method: this.method,
       body: parsedBody
     };
-    if (options.withQuery !== undefined && options.withQuery === false) {
-      opt.url = url;
+    if (options.withOnlyRegion) {
+      let index = this.querystring.indexOf('region');
+      var region = 'region=bj';
+      if (index !== -1) {
+        region = this.querystring.substring(index, index + 9);
+      }
+      opt.url = url + '?' + region;
     } else {
       opt.url = url + (this.querystring ? '?' + this.querystring : '');
     }
