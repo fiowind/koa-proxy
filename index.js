@@ -57,7 +57,14 @@ module.exports = function(options) {
       if (index !== -1) {
         region = this.querystring.substring(index, index + 9);
       }
-      opt.url = url + '?' + region;
+      if (url.indexOf('?') === -1)
+      {
+        opt.url = url + '?' + region;
+      }
+      else
+      {
+        opt.url = url + '&' + region;
+      }
     } else {
       opt.url = url + (this.querystring ? '?' + this.querystring : '');
     }
